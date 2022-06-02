@@ -203,7 +203,7 @@ Gambar 08. Tampilan index
 **Menambah Data (Create)**
 Buat file baru dengan nama **tambah.php**
 
-Sebelumnya kita buat Folder gambar di htdoct > lab8_php_database.Fungsinya untuk menyimpan gambar yang kita mengambil gambar.<br>
+Sebelumnya kita buat Folder gambar di htdocs > lab8_php_database.Fungsinya untuk menyimpan gambar yang kita upload.<br>
 ![08_Lab8Web](Gambar/30.Gambar_Folder_Gambar.jpg)
 
 ~~~
