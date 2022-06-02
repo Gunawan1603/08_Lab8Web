@@ -157,7 +157,7 @@ $result = mysqli_query($conn, $sql);
             <?php if($result): ?>
             <?php while($row = mysqli_fetch_array($result)): ?>
             <tr>
-                <td><img src="gambar/<?= $row['gambar'];?>" alt="<?=$row['nama'];?>"></td>
+                <td><img src="gambar/<?= $row['gambar'];?>" width="100px" height="80px" alt="<?= $row['nama'];?>" ></td>
                 <td><?= $row['nama'];?></td>
                 <td><?= $row['kategori'];?></td>
                 <td><?= $row['harga_jual'];?></td>
@@ -179,6 +179,14 @@ $result = mysqli_query($conn, $sql);
 </body>
 </html>
 ~~~
+>Saya Tambahkan untuk code program **Tambah Barang** :
+~~~
+<a href="tambah.php">Tambah Barang</a>
+~~~
+>Dan di tambahkan Code Size Gambar :
+~~~
+<td><img src="gambar/<?= $row['gambar'];?>" width="100px" height="80px" alt="<?= $row['nama'];?>" ></td>
+~~~
 
 ![08_Lab8Web](Gambar/11.Gambar_Code_index_menampilkan_data.jpg)
 ![08_Lab8Web](Gambar/11.Gambar_Code_index_menampilkan_data1.jpg)
@@ -194,6 +202,10 @@ Gambar 08. Tampilan index
 
 **Menambah Data (Create)**
 Buat file baru dengan nama **tambah.php**
+
+Sebelumnya kita buat Folder gambar di htdoct > lab8_php_database.Fungsinya untuk menyimpan gambar yang kita mengambil gambar.<br>
+![08_Lab8Web](Gambar/30.Gambar_Folder_Gambar.jpg)
+
 ~~~
 <?php
 error_reporting(E_ALL);
@@ -220,7 +232,7 @@ if (isset($_POST['submit']))
     }
     
     $sql = 'INSERT INTO data_barang (nama, kategori, harga_jual, harga_beli, stok, gambar) ';
-    $sql .= "VALUE ('{$nama}', '{$kategori}','{$harga_jual}','{$harga_beli}', '{$stok}', '{$gambar}')";
+    $sql .= "VALUE ('{$nama}', '{$kategori}','{$harga_jual}','{$harga_beli}', '{$stok}', '{$filename}')";
     $result = mysqli_query($conn, $sql);
     header('location: index.php');
 }
@@ -307,10 +319,10 @@ if (isset($_POST['submit']))
     $harga_jual = $_POST['harga_jual'];
     $harga_beli = $_POST['harga_beli'];
     $stok = $_POST['stok'];
-    $file_gambar = $_FILES['file_gambar'];
+    $file_gambar = $_FILES['gambar'];
     $gambar = null;
 
-    if ($file_gambar['error'] == 0)
+    if ($gambar['error'] == 0)
     {
         $filename = str_replace(' ', '_', $file_gambar['name']);
         $destination = dirname(__FILE__) . '/gambar/' . $filename;
@@ -323,8 +335,8 @@ if (isset($_POST['submit']))
     $sql = 'UPDATE data_barang SET ';
     $sql .= "nama = '{$nama}', kategori = '{$kategori}', ";
     $sql .= "harga_jual = '{$harga_jual}', harga_beli = '{$harga_beli}', stok = '{$stok}' ";
-    if (!empty($gambar))
-        $sql .= ", gambar = '{$gambar}' ";
+    if (!empty($filename))
+        $sql .= ", gambar = '{$filename}' ";
     $sql .= "WHERE id_barang = '{$id}'";
     $result = mysqli_query($conn, $sql);
 
@@ -381,7 +393,7 @@ if (isset($_POST['submit']))
             </div>
             <div class="input">
                 <label>File Gambar</label>
-                <input type="file" name="file_gambar" />
+                <input type="file" name="gambar" />
             </div>
             <div class="submit">
                 <input type="hidden" name="id" value="<?php echo $data['id_barang'];?>" />

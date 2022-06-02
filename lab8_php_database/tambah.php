@@ -23,7 +23,7 @@ if (isset($_POST['submit']))
     }
     
     $sql = 'INSERT INTO data_barang (nama, kategori, harga_jual, harga_beli, stok, gambar) ';
-    $sql .= "VALUE ('{$nama}', '{$kategori}','{$harga_jual}','{$harga_beli}', '{$stok}', '{$gambar}')";
+    $sql .= "VALUE ('{$nama}', '{$kategori}','{$harga_jual}','{$harga_beli}', '{$stok}', '{$filename}')";
     $result = mysqli_query($conn, $sql);
     header('location: index.php');
 }
